@@ -1,7 +1,8 @@
 //Definir la lógica de la app
-
+const entries = [];
 const renderIndex = (req,res) =>{
-    res.render('index');
+    //Pasarle al index, el array con las entradas en forma de objeto
+    res.render('index',{entries});
 };
 
 const renderNewEntry = (req,res) =>{
@@ -9,8 +10,14 @@ const renderNewEntry = (req,res) =>{
 };
 
 const createNewEntry = (req,res) =>{
-    console.log(req.body);
-    res.send('received');
+    //Recuperando datos recibidos desde el formulario
+    const newEntry = {
+        title: req.body.title,
+        content: req.body.body,
+        published: new Date()
+    };
+    entries.push(newEntry);
+    res.redirect('/');
 };
 //Exportar funciones creadas
 module.exports = {
